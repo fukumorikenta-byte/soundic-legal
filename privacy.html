@@ -1,0 +1,252 @@
+<title>Soundic プライバシーポリシー</title>
+<style>
+  :root {
+    --ground: #f7f6fa;
+    --surface: #ffffff;
+    --text: #171a24;
+    --muted: #5b6274;
+    --faint: #8b91a3;
+    --rule: #e7e4ef;
+    --accent: #d81b78;
+    --accent-soft: #fbe9f3;
+    --ring: rgba(216, 27, 120, 0.35);
+    --measure: 43rem;
+    --sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
+      system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0e1a2c;
+      --surface: #142238;
+      --text: #e9ecf4;
+      --muted: #9ba6bd;
+      --faint: #6f7c96;
+      --rule: #22344f;
+      --accent: #ff5aa8;
+      --accent-soft: rgba(255, 90, 168, 0.12);
+      --ring: rgba(255, 90, 168, 0.45);
+    }
+  }
+  :root[data-theme="light"] {
+    --ground: #f7f6fa; --surface: #ffffff; --text: #171a24; --muted: #5b6274;
+    --faint: #8b91a3; --rule: #e7e4ef; --accent: #d81b78;
+    --accent-soft: #fbe9f3; --ring: rgba(216, 27, 120, 0.35);
+  }
+  :root[data-theme="dark"] {
+    --ground: #0e1a2c; --surface: #142238; --text: #e9ecf4; --muted: #9ba6bd;
+    --faint: #6f7c96; --rule: #22344f; --accent: #ff5aa8;
+    --accent-soft: rgba(255, 90, 168, 0.12); --ring: rgba(255, 90, 168, 0.45);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.85;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: var(--measure); margin: 0 auto; padding: 0 24px 96px; }
+
+  header.masthead {
+    padding: 72px 0 34px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 40px;
+    position: relative;
+  }
+  header.masthead::before {
+    content: "";
+    position: absolute; top: 0; left: 0; width: 54px; height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #2bf5ea, var(--accent) 55%, #ffd65c);
+  }
+  .eyebrow {
+    font-size: 12px; font-weight: 800; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+  }
+  h1 {
+    font-size: clamp(29px, 6vw, 40px); font-weight: 800; line-height: 1.2;
+    margin: 0 0 12px; letter-spacing: -0.01em; text-wrap: balance;
+  }
+  .updated {
+    font-size: 13.5px; color: var(--faint); margin: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .intro { color: var(--muted); font-size: 16.5px; margin: 0 0 8px; }
+
+  section { margin-top: 44px; }
+  h2 {
+    display: flex; align-items: baseline; gap: 12px;
+    font-size: 20px; font-weight: 800; letter-spacing: -0.01em;
+    margin: 0 0 14px; text-wrap: balance;
+  }
+  h2 .num {
+    flex: none; font-size: 13px; font-weight: 800;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    min-width: 1.7em; text-align: right;
+  }
+  h3 {
+    font-size: 15px; font-weight: 700; color: var(--text);
+    margin: 22px 0 8px;
+  }
+  p { margin: 0 0 12px; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--ring); }
+  a:hover { border-bottom-color: var(--accent); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  ul, ol { margin: 6px 0 14px; padding-left: 0; list-style: none; }
+  li { position: relative; padding-left: 26px; margin-bottom: 9px; color: var(--text); }
+  ul li::before {
+    content: ""; position: absolute; left: 6px; top: 0.72em;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+  }
+  ol { counter-reset: item; }
+  ol li { counter-increment: item; }
+  ol li::before {
+    content: counter(item); position: absolute; left: 0; top: 0;
+    font-size: 12.5px; font-weight: 800; color: var(--accent);
+    font-variant-numeric: tabular-nums; line-height: 1.85;
+  }
+  li strong { font-weight: 700; }
+
+  .callout {
+    background: var(--accent-soft);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-top: 12px;
+  }
+  .callout p { margin: 0; }
+  .contact-mail {
+    font-weight: 700; font-size: 16px;
+  }
+
+  footer {
+    margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--rule);
+    color: var(--faint); font-size: 13px;
+  }
+  footer .brand { color: var(--muted); font-weight: 700; }
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow">Soundic</div>
+    <h1>プライバシーポリシー</h1>
+    <p class="updated">最終更新日: 2026年7月21日</p>
+  </header>
+
+  <p class="intro">
+    Soundic（以下「本サービス」）は、ユーザーのプライバシーを尊重し、個人情報の適切な取扱いに努めます。本ポリシーは、本サービスがどのような情報を収集し、どのように利用・保護するかを定めます。
+  </p>
+
+  <section>
+    <h2><span class="num">1</span> 収集する情報</h2>
+    <p>本サービスは、以下の情報を収集します。</p>
+    <h3>1.1 ユーザーから提供される情報</h3>
+    <ul>
+      <li><strong>アカウント情報</strong>：メールアドレス、表示名、ユーザー名、プロフィール画像</li>
+      <li><strong>投稿コンテンツ</strong>：チェックイン（位置情報・楽曲情報・写真・動画・キャプション・「なんでこの曲？」テキスト）、プレイリスト、コメント、いいね、チーム内のメッセージ、ダイレクトメッセージ</li>
+    </ul>
+    <h3>1.2 自動的に収集される情報</h3>
+    <ul>
+      <li><strong>位置情報</strong>：チェックイン時の緯度経度（プライバシー保護のため、スポット表示時は半径1km程度に丸めて表示）</li>
+      <li><strong>再生履歴</strong>：楽曲タイトル、アーティスト、再生時刻、再生元（チャート／プレイリスト等）。再生履歴は、ランキングやおすすめ楽曲の集計のため、他のユーザーにも集計・関連情報として反映されることがあります。</li>
+      <li><strong>デバイス情報</strong>：端末種別、OS、アプリバージョン</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span> 利用目的</h2>
+    <p>収集した情報は、以下の目的で利用します。</p>
+    <ol>
+      <li>本サービスの提供・運営・改善</li>
+      <li>ユーザーの認証・本人確認</li>
+      <li>投稿の表示、フォロー関係・通知の処理</li>
+      <li>「バイブスポイント」「スポットランキング」「おすすめ楽曲」等の機能提供</li>
+      <li>不正利用の防止、安全な運営</li>
+      <li>お問い合わせへの対応</li>
+      <li>利用規約違反への対処</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span> 第三者への提供</h2>
+    <p>本サービスは、原則として第三者にユーザーの個人情報を提供しません。ただし、以下の場合を除きます。</p>
+    <ul>
+      <li>ユーザーの同意がある場合</li>
+      <li>法令に基づく場合</li>
+      <li>人の生命・身体または財産の保護のために必要な場合</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span> 業務委託・データの保管場所</h2>
+    <p>本サービスは、データベース・認証・ストレージ・音楽再生機能の提供のため、以下の海外事業者を利用しています。</p>
+    <ul>
+      <li><strong>Supabase, Inc.</strong>（米国）：データベース、認証、ストレージ</li>
+      <li><strong>Apple Inc.</strong>（米国）：Apple Music（MusicKit）による楽曲再生、Apple Music API／iTunes Search API による楽曲メタデータ・チャート</li>
+    </ul>
+    <p>これらの事業者には、本サービスの運営に必要な範囲内でのみ情報が提供されます。</p>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span> ユーザーの権利</h2>
+    <p>ユーザーは、自己の個人情報について以下の権利を有します。</p>
+    <ul>
+      <li><strong>アクセス権</strong>：保有する個人情報の開示を求める権利</li>
+      <li><strong>訂正権</strong>：不正確な情報の訂正を求める権利</li>
+      <li><strong>削除権</strong>：アカウント削除により、自己の個人情報の削除を求める権利</li>
+      <li><strong>利用停止権</strong>：一定の場合に利用停止を求める権利</li>
+    </ul>
+    <p>アカウント削除は、アプリ内の「設定 → アカウント削除」から行えます。削除リクエスト後、関連するすべての投稿・プレイリスト・履歴データが完全に削除されます。</p>
+  </section>
+
+  <section>
+    <h2><span class="num">6</span> データの保存期間</h2>
+    <ul>
+      <li>アクティブなアカウントの情報：アカウント存続中</li>
+      <li>削除後：削除リクエスト受領後速やかに完全削除（バックアップから消去されるまで最大30日）</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">7</span> 安全管理措置</h2>
+    <p>本サービスは、収集した情報の漏洩、滅失、毀損を防止するため、以下の措置を講じます。</p>
+    <ul>
+      <li>すべての通信を TLS 1.2 以上で暗号化</li>
+      <li>データベースに行レベルセキュリティ（RLS）を適用</li>
+      <li>パスワードは Supabase 認証によりハッシュ化して保管</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">8</span> クッキー・トラッキング</h2>
+    <p>本サービスはアプリ内でクッキーやサードパーティ広告トラッカーを使用しません。</p>
+  </section>
+
+  <section>
+    <h2><span class="num">9</span> 16歳未満の利用</h2>
+    <p>本サービスは16歳以上を対象としています。16歳未満の方は本サービスを利用できません。</p>
+  </section>
+
+  <section>
+    <h2><span class="num">10</span> ポリシーの変更</h2>
+    <p>本ポリシーは予告なく変更されることがあります。重要な変更がある場合は、アプリ内で通知します。</p>
+  </section>
+
+  <section>
+    <h2><span class="num">11</span> お問い合わせ</h2>
+    <p>本ポリシーや個人情報の取扱いに関するお問い合わせは、以下にご連絡ください。</p>
+    <div class="callout">
+      <p class="contact-mail">✉ <a href="mailto:info@moma-and.com">info@moma-and.com</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <p><span class="brand">Soundic</span> — 準拠法：本ポリシーは日本法に準拠します。</p>
+  </footer>
+</div>
