@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Soundic</title>
+<meta property="og:title" content="Soundic｜音楽と場所のSNS">
+<meta property="og:description" content="いま聴いている曲を、いまいる場所に種として蒔く。あなたの好きを、世界に蒔こう。">
+<meta property="og:image" content="https://fukumorikenta-byte.github.io/soundic-legal/link/og.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{min-height:100vh;background:radial-gradient(ellipse 90% 55% at 50% 30%,#2a1a52 0%,#161d3d 55%,#0b1328 100%);color:#fff8e7;font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;display:flex;flex-direction:column;align-items:center;padding:36px 22px 40px;text-align:center}
+.logo{font-weight:900;letter-spacing:.32em;font-size:22px;color:#fff4fb;text-shadow:0 0 8px #FF2E93,0 0 22px #FF2E93;margin-bottom:6px}
+.tag{color:#FFD65C;font-size:13px;font-weight:700;margin-bottom:28px}
+.art{width:min(72vw,300px);height:min(72vw,300px);border-radius:28px;object-fit:cover;box-shadow:0 0 34px rgba(255,46,147,.7);border:3px solid #FF2E93;background:#24456E;display:flex;align-items:center;justify-content:center;font-size:96px;color:#2BF5EA}
+h1{font-size:22px;font-weight:900;line-height:1.35;margin:26px 0 10px;overflow-wrap:anywhere}
+p{font-size:14px;line-height:1.7;color:rgba(255,248,231,.8);max-width:420px;white-space:pre-line}
+.btn{display:block;width:100%;max-width:420px;margin-top:14px;padding:16px 18px;border-radius:999px;font-weight:900;font-size:16px;text-decoration:none;cursor:pointer;border:0;font-family:inherit}
+.primary{background:#FF2E93;color:#fff;box-shadow:0 0 22px rgba(255,46,147,.6)}
+.secondary{background:#2BF5EA;color:#0b1328;box-shadow:0 0 22px rgba(43,245,234,.6)}
+.after{font-size:12px;color:rgba(255,248,231,.6);margin-top:12px;max-width:420px;line-height:1.6}
+.what{margin-top:40px;font-size:12px;color:rgba(255,248,231,.55);max-width:420px;line-height:1.7}
+.foot{margin-top:18px;font-size:11px;color:rgba(255,248,231,.4)}
+.foot a{color:inherit}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="logo">SOUNDIC</div>
+<div class="tag" id="tagline">音楽と共に、あなたの好きを広めよう</div>
+<img class="art" id="art" alt="" hidden>
+<div class="art" id="artph">♪</div>
+<h1 id="title">読み込み中…</h1>
+<p id="sub"></p>
+<a class="btn primary" id="openBtn" hidden>アプリで開く</a>
+<a class="btn secondary" id="storeBtn">App Store で Soundic を入れる（無料）</a>
+<div class="after" id="after" hidden></div>
+<div class="what" id="what"></div>
+<div class="foot"><a href="../privacy.html">プライバシーポリシー</a> ・ <a href="../terms.html">利用規約</a></div>
+<script>
+(function(){
+  // プレビューの中身は Supabase の Edge Function `link` の /preview (JSON) から取る (鍵はページに置かない)
+  var PREVIEW = "https://apuqamddwgcaulsmzkcm.supabase.co/functions/v1/link/preview";
+  var APP_ID = "6775738440", PT = "128982336", SCHEME = "com.fukumori.soundmark";
+  function store(ct){ return "https://apps.apple.com/app/apple-store/id"+APP_ID+"?pt="+PT+"&ct="+ct+"&mt=8"; }
+
+  var lang = (navigator.language||"").toLowerCase().indexOf("ja")===0 ? "ja" : "en";
+  var T = {
+    ja:{gift_title:"{name}さんから曲が届いています", gift_sub:"アプリで開くと、写真とメッセージと一緒に曲が流れます。", gift_taken:"この曲は、もう別の人が受け取りました。", gift_missing:"リンクが見つかりませんでした。",
+        team_title:"チーム「{name}」に招待されました", team_sub:"{owner}さんのチーム ・ メンバー {n}人。参加すると、聖地を一緒に守れます。", team_missing:"チームが見つかりませんでした。",
+        open_app:"アプリで開く（インストール済みの人）", get_app:"App Store で Soundic を入れる（無料）", after:"入れたあと、もう一度このリンクを開いてください。",
+        tagline:"音楽と共に、あなたの好きを広めよう", what:"Soundic は、聴いている曲を今いる場所に「種」として蒔く、音楽×地図の SNS です。", loading:"読み込み中…", plain:"Soundic へようこそ"},
+    en:{gift_title:"{name} sent you a song", gift_sub:"Open it in the app to hear the song with a photo and a message.", gift_taken:"This song has already been received by someone else.", gift_missing:"This link could not be found.",
+        team_title:"You are invited to the team “{name}”", team_sub:"{owner}'s team ・ {n} members. Join and defend holy spots together.", team_missing:"This team could not be found.",
+        open_app:"Open in the app (already installed)", get_app:"Get Soundic on the App Store (free)", after:"After installing, open this link again.",
+        tagline:"Spread what you love, together with music", what:"Soundic is a music × map social app: plant the song you're listening to, right where you are.", loading:"Loading…", plain:"Welcome to Soundic"}
+  }[lang];
+  function fill(s,p){ return s.replace(/\{(\w+)\}/g, function(_,k){ return p[k]==null?"":p[k]; }); }
+  var $ = function(id){ return document.getElementById(id); };
+  document.documentElement.lang = lang;
+  $("tagline").textContent = T.tagline; $("what").textContent = T.what; $("title").textContent = T.loading; $("storeBtn").textContent = T.get_app;
+
+  var q = new URLSearchParams(location.search);
+  var type = q.get("type") || "";
+  var token = q.get("t") || "", teamId = q.get("id") || "", code = q.get("c") || "";
+
+  function rpc(kind, params){
+    var qs = new URLSearchParams(params); qs.set("type", kind);
+    return fetch(PREVIEW+"?"+qs.toString(), {method:"GET"})
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(j){ return (j && j.found) ? j.data : null; })
+      .catch(function(){ return null; });
+  }
+  function showArt(url){
+    if(!url){ return; }
+    var big = url.replace(/\/\d+x\d+(bb)?\./, "/600x600$1.");
+    var img = $("art"); img.src = big; img.hidden = false; $("artph").hidden = true;
+  }
+  function render(o){
+    $("title").textContent = o.title; $("sub").textContent = o.sub || "";
+    if(o.appUrl){ var b=$("openBtn"); b.href=o.appUrl; b.textContent=T.open_app; b.hidden=false; }
+    $("storeBtn").href = o.storeUrl;
+    if(o.showAfter){ $("after").textContent = T.after; $("after").hidden=false; }
+    showArt(o.art);
+    document.title = o.title + " | Soundic";
+    // アプリが入っていれば、自動で開く (入っていなければ何も起きず、このページが残る)
+    if(o.appUrl && o.autoOpen){ setTimeout(function(){ location.href = o.appUrl; }, 300); }
+  }
+
+  if(type==="gift" && token){
+    rpc("gift", {t: token}).then(function(g){
+      var st = store("gift_link");
+      if(!g){ return render({title:T.gift_missing, sub:"", storeUrl:st}); }
+      var appUrl = SCHEME+"://gift?t="+encodeURIComponent(token);
+      render({title: g.claimed ? T.gift_taken : fill(T.gift_title,{name:g.sender_name||""}),
+              sub: (g.track_title||"")+" / "+(g.track_artist||"")+(g.claimed?"":"\n"+T.gift_sub),
+              art: g.track_artwork_url, appUrl: g.claimed?null:appUrl, storeUrl: st, showAfter: !g.claimed, autoOpen: !g.claimed});
+    });
+  } else if(type==="team" && /^[0-9a-f-]{36}$/i.test(teamId)){
+    rpc("team", {id: teamId}).then(function(tm){
+      var st = store("team_link");
+      if(!tm){ return render({title:T.team_missing, sub:"", storeUrl:st}); }
+      var appUrl = SCHEME+"://team?id="+encodeURIComponent(teamId)+"&c="+encodeURIComponent(code);
+      render({title: fill(T.team_title,{name:tm.name||""}), sub: fill(T.team_sub,{owner:tm.owner_name||"", n:String(tm.member_count||0)}),
+              art: tm.icon_url, appUrl: appUrl, storeUrl: st, showAfter: true, autoOpen: true});
+    });
+  } else {
+    render({title:T.plain, sub:"", storeUrl: store("link")});
+  }
+})();
+</script>
+</body>
+</html>
