@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /link/
+Sitemap: https://fukumorikenta-byte.github.io/soundic-legal/sitemap.xml
